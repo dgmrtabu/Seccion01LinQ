@@ -42,6 +42,11 @@ namespace Seccion01LinQ
         public SexoEnum Sexo { get; set; }
         public PaisEnum PaisNacimiento { get; set; }
         public List<Telefono> ListaTelefonos { get; set; }
+
+        public override string ToString()
+        {
+            return $"{(FechaNacimiento.HasValue ? FechaNacimiento.Value.ToString("dd-MM-yyyy"): "S/F")} --> { Nombre} {ApellidoPaterno}";
+        }
     }
 
     public class Telefono
