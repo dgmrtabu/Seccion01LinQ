@@ -15,7 +15,8 @@ namespace Seccion01LinQ
             //OrdenNombres();
             // FiltroNumeros();
             //FiltroNombres();
-            FiltroPersonas();
+            //FiltroPersonas();
+            SeleccionNumeros();
             Console.Read();
         }
 
@@ -131,36 +132,61 @@ namespace Seccion01LinQ
 
         //}
 
-        private static void FiltroPersonas()
+        //private static void FiltroPersonas()
+        //{
+        //    var lista = Utilidades.ObtenerListaPersonas();
+        //    Console.WriteLine($"Todas las personas tienen fecha y nacimiento: {lista.All(x => x.FechaNacimiento.HasValue)}");
+        //    Console.WriteLine($"Hay al menos una persona nacida despues del 2000-01-01: {lista.Any(x => x.FechaNacimiento >= new DateTime(2000, 1, 1))}");
+        //    Console.WriteLine($"Hay al menos una persona nacida despues del 2000-01-01: {lista.Any(x => x.FechaNacimiento >= new DateTime(2020, 1, 1))}");
+        //    Console.WriteLine();
+
+        //    var listaChile = lista
+        //                            .Where(x => x.PaisNacimiento == PaisEnum.Chile)
+        //                            .ToList();
+
+        //    Console.WriteLine("Lista Chile");
+        //    Console.WriteLine(string.Join(" - ", listaChile));
+
+        //    var listaPaises = new List<PaisEnum> { PaisEnum.Argentina, PaisEnum.Peru };
+        //    var listaAP = lista
+        //                .Where(x => listaPaises.Contains(x.PaisNacimiento) && x.Sexo == SexoEnum.Femenino)
+        //                .ToList();
+
+        //    Console.WriteLine("Lista Argentina - Peru");
+        //    Console.WriteLine(string.Join(" \n ", listaAP));
+
+        //    var listaMultifono = lista
+        //                .Where(x => x.ListaTelefonos.Count > 1)
+        //                .ToList();
+
+        //    Console.WriteLine("Lista Multifono");
+        //    Console.WriteLine(string.Join(" \n ", listaMultifono));
+
+        //}
+
+        private static void SeleccionNumeros()
         {
-            var lista = Utilidades.ObtenerListaPersonas();
-            Console.WriteLine($"Todas las personas tienen fecha y nacimiento: {lista.All(x => x.FechaNacimiento.HasValue)}");
-            Console.WriteLine($"Hay al menos una persona nacida despues del 2000-01-01: {lista.Any(x => x.FechaNacimiento >= new DateTime(2000, 1, 1))}");
-            Console.WriteLine($"Hay al menos una persona nacida despues del 2000-01-01: {lista.Any(x => x.FechaNacimiento >= new DateTime(2020, 1, 1))}");
-            Console.WriteLine();
+            var listaNumeros = Utilidades.ObtenerListaNumeros();
+            Console.WriteLine(string.Join(" - ", listaNumeros));
 
-            var listaChile = lista
-                                    .Where(x => x.PaisNacimiento == PaisEnum.Chile)
-                                    .ToList();
+            var listaCuadrado = listaNumeros.Select(x => x * x).ToList();
+            Console.WriteLine(string.Join(" - ", listaCuadrado));
 
-            Console.WriteLine("Lista Chile");
-            Console.WriteLine(string.Join(" - ", listaChile));
+            var listaPosicion = listaNumeros.Select((x,y) => x * y).ToList();
+            Console.WriteLine(string.Join(" - ", listaPosicion));
+            
+            Console.WriteLine(string.Join(" - ", listaNumeros.Select((x,y)=>y.ToString().PadLeft(7,' '))));
+            Console.WriteLine(string.Join(" - ", listaNumeros.Select(x => x.ToString().PadLeft(7,' '))));
+            Console.WriteLine(string.Join(" - ", listaCuadrado.Select(x => x.ToString().PadLeft(7,' '))));
+            Console.WriteLine(string.Join(" - ", listaPosicion.Select(x => x.ToString().PadLeft(7,' '))));
 
-            var listaPaises = new List<PaisEnum> { PaisEnum.Argentina, PaisEnum.Peru };
-            var listaAP = lista
-                        .Where(x => listaPaises.Contains(x.PaisNacimiento) && x.Sexo == SexoEnum.Femenino)
-                        .ToList();
-
-            Console.WriteLine("Lista Argentina - Peru");
-            Console.WriteLine(string.Join(" \n ", listaAP));
-
-            var listaMultifono = lista
-                        .Where(x => x.ListaTelefonos.Count > 1)
-                        .ToList();
-
-            Console.WriteLine("Lista Multifono");
-            Console.WriteLine(string.Join(" \n ", listaMultifono));
-
+            var listaElevados = listaNumeros
+                                            .Select(x => new { Numero = x, Cuadrado = x * x, Cubo = x * x })
+                                            .ToList();
+            foreach(var item in listaElevados)
+            {
+                Console.WriteLine($"{ item.Numero} --> {item.Cuadrado} --> {item.Cubo}");
+            }
         }
 
     }
