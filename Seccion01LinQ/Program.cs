@@ -164,30 +164,56 @@ namespace Seccion01LinQ
 
         //}
 
+        //private static void SeleccionNumeros()
+        //{
+        //    var listaNumeros = Utilidades.ObtenerListaNumeros();
+        //    Console.WriteLine(string.Join(" - ", listaNumeros));
+
+        //    var listaCuadrado = listaNumeros.Select(x => x * x).ToList();
+        //    Console.WriteLine(string.Join(" - ", listaCuadrado));
+
+        //    var listaPosicion = listaNumeros.Select((x,y) => x * y).ToList();
+        //    Console.WriteLine(string.Join(" - ", listaPosicion));
+
+        //    Console.WriteLine(string.Join(" - ", listaNumeros.Select((x,y)=>y.ToString().PadLeft(7,' '))));
+        //    Console.WriteLine(string.Join(" - ", listaNumeros.Select(x => x.ToString().PadLeft(7,' '))));
+        //    Console.WriteLine(string.Join(" - ", listaCuadrado.Select(x => x.ToString().PadLeft(7,' '))));
+        //    Console.WriteLine(string.Join(" - ", listaPosicion.Select(x => x.ToString().PadLeft(7,' '))));
+
+        //    var listaElevados = listaNumeros
+        //                                    .Select(x => new { Numero = x, Cuadrado = x * x, Cubo = x * x })
+        //                                    .ToList();
+        //    foreach(var item in listaElevados)
+        //    {
+        //        Console.WriteLine($"{ item.Numero} --> {item.Cuadrado} --> {item.Cubo}");
+        //    }
+        //}
+
         private static void SeleccionNumeros()
         {
+            var listaNombre = Utilidades.ObtenerListaNombres();
+            Console.WriteLine(string.Join(" - ", listaNombre));
+
+            var listaFormateada = listaNombre.Select((x, y) => $"{(y + 1).ToString().PadLeft(3, '0')} {x}").ToList();
+            Console.WriteLine(string.Join("\n", listaFormateada));
+            Console.WriteLine();
+
             var listaNumeros = Utilidades.ObtenerListaNumeros();
-            Console.WriteLine(string.Join(" - ", listaNumeros));
 
-            var listaCuadrado = listaNumeros.Select(x => x * x).ToList();
-            Console.WriteLine(string.Join(" - ", listaCuadrado));
-
-            var listaPosicion = listaNumeros.Select((x,y) => x * y).ToList();
-            Console.WriteLine(string.Join(" - ", listaPosicion));
-            
-            Console.WriteLine(string.Join(" - ", listaNumeros.Select((x,y)=>y.ToString().PadLeft(7,' '))));
-            Console.WriteLine(string.Join(" - ", listaNumeros.Select(x => x.ToString().PadLeft(7,' '))));
-            Console.WriteLine(string.Join(" - ", listaCuadrado.Select(x => x.ToString().PadLeft(7,' '))));
-            Console.WriteLine(string.Join(" - ", listaPosicion.Select(x => x.ToString().PadLeft(7,' '))));
-
-            var listaElevados = listaNumeros
-                                            .Select(x => new { Numero = x, Cuadrado = x * x, Cubo = x * x })
+            var listaResultado = listaNombre
+                                            .SelectMany(x => listaNumeros,
+                                                    (nombre, num) =>
+                                                    new
+                                                    {
+                                                        Nombre = nombre,
+                                                        Numero = num
+                                                    })
                                             .ToList();
-            foreach(var item in listaElevados)
+            foreach(var item in listaResultado)
             {
-                Console.WriteLine($"{ item.Numero} --> {item.Cuadrado} --> {item.Cubo}");
+                Console.WriteLine($"{item.Nombre} --> {item.Numero}");
             }
         }
-
+                                            
     }
 }
