@@ -16,7 +16,8 @@ namespace Seccion01LinQ
             // FiltroNumeros();
             //FiltroNombres();
             //FiltroPersonas();
-            SeleccionNumeros();
+            //SeleccionNumeros();
+            SeleccionPersonas();
             Console.Read();
         }
 
@@ -189,31 +190,71 @@ namespace Seccion01LinQ
         //    }
         //}
 
-        private static void SeleccionNumeros()
+        //private static void SeleccionNumeros()
+        //{
+        //    var listaNombre = Utilidades.ObtenerListaNombres();
+        //    Console.WriteLine(string.Join(" - ", listaNombre));
+
+        //    var listaFormateada = listaNombre.Select((x, y) => $"{(y + 1).ToString().PadLeft(3, '0')} {x}").ToList();
+        //    Console.WriteLine(string.Join("\n", listaFormateada));
+        //    Console.WriteLine();
+
+        //    var listaNumeros = Utilidades.ObtenerListaNumeros();
+
+        //    var listaResultado = listaNombre
+        //                                    .SelectMany(x => listaNumeros,
+        //                                            (nombre, num) =>
+        //                                            new
+        //                                            {
+        //                                                Nombre = nombre,
+        //                                                Numero = num
+        //                                            })
+        //                                    .ToList();
+        //    foreach(var item in listaResultado)
+        //    {
+        //        Console.WriteLine($"{item.Nombre} --> {item.Numero}");
+        //    }
+        //}
+
+        private static void SeleccionPersonas()
         {
-            var listaNombre = Utilidades.ObtenerListaNombres();
+            var lista = Utilidades.ObtenerListaPersonas();
+            var listaNombre = lista
+                                    .Where(x => x.Sexo == SexoEnum.Femenino)
+                                    .Select(x => $"{x.Nombre} {x.ApellidoPaterno}")
+                                    .OrderBy(x => x)
+                                    .ToList();
             Console.WriteLine(string.Join(" - ", listaNombre));
 
-            var listaFormateada = listaNombre.Select((x, y) => $"{(y + 1).ToString().PadLeft(3, '0')} {x}").ToList();
-            Console.WriteLine(string.Join("\n", listaFormateada));
+            Console.WriteLine();
+            var listapersonaTelefono = lista
+                                            .Select(x => new { NombreCompleto = $"{x.Nombre} {x.ApellidoPaterno}", x.ListaTelefonos })
+                                            .Select(x => $"{x.NombreCompleto} {string.Join(" - ", x.ListaTelefonos.Select(y => $"{y.CodigoPais} - {y.Numero}"))}")
+                                            .ToList();
+            Console.WriteLine(string.Join(" \n ", listapersonaTelefono));
             Console.WriteLine();
 
-            var listaNumeros = Utilidades.ObtenerListaNumeros();
-
-            var listaResultado = listaNombre
-                                            .SelectMany(x => listaNumeros,
-                                                    (nombre, num) =>
-                                                    new
-                                                    {
-                                                        Nombre = nombre,
-                                                        Numero = num
-                                                    })
-                                            .ToList();
-            foreach(var item in listaResultado)
+            var listaEdad = lista
+                                .Select(x => new
+                                {
+                                    NombreCompleto = $"{x.Nombre} {x.ApellidoPaterno}",
+                                    x.FechaNacimiento,
+                                    Edad = x.FechaNacimiento.HasValue ? (int?)DateTime.Now.AddTicks(-x.FechaNacimiento.Value.Ticks).Year - 1 : null
+                                })
+                                .ToList();
+            foreach(var item in listaEdad)
             {
-                Console.WriteLine($"{item.Nombre} --> {item.Numero}");
+                Console.WriteLine($"{item.NombreCompleto} {(item.FechaNacimiento.HasValue ? $"nacido(a) el {item.FechaNacimiento.Value.ToString("dd-MM-yyyy")}" : "Sin informacion de nacimiento")} {(item.Edad.HasValue ? $"con una edad de {item.Edad}": string.Empty)}");
             }
+            Console.WriteLine();
+
+            var listaTelefonos = lista
+                                    .SelectMany(x => x.ListaTelefonos)
+                                    .ToList();
+            Console.WriteLine(string.Join(" \n ", listaTelefonos.Select(x => $"{x.CodigoPais} {x.Numero}")));
+            Console.WriteLine();
         }
-                                            
+
+
     }
 }
