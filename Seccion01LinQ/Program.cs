@@ -9,7 +9,7 @@ namespace Seccion01LinQ
 {
     class Program
     {
-        static void Main(string [] args)
+        static void Main(string[] args)
         {
             //OrdenNumeros();
             //OrdenNombres();
@@ -17,7 +17,9 @@ namespace Seccion01LinQ
             //FiltroNombres();
             //FiltroPersonas();
             //SeleccionNumeros();
-            SeleccionPersonas();
+            //SeleccionPersonas();
+            //SeleccionElementosNumeros();
+            SeleccionElementosNombres();
             Console.Read();
         }
 
@@ -216,45 +218,81 @@ namespace Seccion01LinQ
         //    }
         //}
 
-        private static void SeleccionPersonas()
+        //private static void SeleccionPersonas()
+        //{
+        //    var lista = Utilidades.ObtenerListaPersonas();
+        //    var listaNombre = lista
+        //                            .Where(x => x.Sexo == SexoEnum.Femenino)
+        //                            .Select(x => $"{x.Nombre} {x.ApellidoPaterno}")
+        //                            .OrderBy(x => x)
+        //                            .ToList();
+        //    Console.WriteLine(string.Join(" - ", listaNombre));
+
+        //    Console.WriteLine();
+        //    var listapersonaTelefono = lista
+        //                                    .Select(x => new { NombreCompleto = $"{x.Nombre} {x.ApellidoPaterno}", x.ListaTelefonos })
+        //                                    .Select(x => $"{x.NombreCompleto} {string.Join(" - ", x.ListaTelefonos.Select(y => $"{y.CodigoPais} - {y.Numero}"))}")
+        //                                    .ToList();
+        //    Console.WriteLine(string.Join(" \n ", listapersonaTelefono));
+        //    Console.WriteLine();
+
+        //    var listaEdad = lista
+        //                        .Select(x => new
+        //                        {
+        //                            NombreCompleto = $"{x.Nombre} {x.ApellidoPaterno}",
+        //                            x.FechaNacimiento,
+        //                            Edad = x.FechaNacimiento.HasValue ? (int?)DateTime.Now.AddTicks(-x.FechaNacimiento.Value.Ticks).Year - 1 : null
+        //                        })
+        //                        .ToList();
+        //    foreach(var item in listaEdad)
+        //    {
+        //        Console.WriteLine($"{item.NombreCompleto} {(item.FechaNacimiento.HasValue ? $"nacido(a) el {item.FechaNacimiento.Value.ToString("dd-MM-yyyy")}" : "Sin informacion de nacimiento")} {(item.Edad.HasValue ? $"con una edad de {item.Edad}": string.Empty)}");
+        //    }
+        //    Console.WriteLine();
+
+        //    var listaTelefonos = lista
+        //                            .SelectMany(x => x.ListaTelefonos)
+        //                            .ToList();
+        //    Console.WriteLine(string.Join(" \n ", listaTelefonos.Select(x => $"{x.CodigoPais} {x.Numero}")));
+        //    Console.WriteLine();
+        //}
+
+        private static void SeleccionElementosNumeros()
         {
-            var lista = Utilidades.ObtenerListaPersonas();
-            var listaNombre = lista
-                                    .Where(x => x.Sexo == SexoEnum.Femenino)
-                                    .Select(x => $"{x.Nombre} {x.ApellidoPaterno}")
-                                    .OrderBy(x => x)
-                                    .ToList();
-            Console.WriteLine(string.Join(" - ", listaNombre));
+            var listaNumeros = Utilidades.ObtenerListaNumeros()
+                                                                .Select(x => (int?)x).ToList();
+            Console.WriteLine(string.Join(" - ", listaNumeros));
 
-            Console.WriteLine();
-            var listapersonaTelefono = lista
-                                            .Select(x => new { NombreCompleto = $"{x.Nombre} {x.ApellidoPaterno}", x.ListaTelefonos })
-                                            .Select(x => $"{x.NombreCompleto} {string.Join(" - ", x.ListaTelefonos.Select(y => $"{y.CodigoPais} - {y.Numero}"))}")
-                                            .ToList();
-            Console.WriteLine(string.Join(" \n ", listapersonaTelefono));
-            Console.WriteLine();
+            var primeroDefault = listaNumeros.FirstOrDefault();
+            var primeroCondicionDefault = listaNumeros.FirstOrDefault(x => x ==500);
+            var ultimoCondicionDefault1 = listaNumeros.LastOrDefault(x => x < 25 && x > 5);
+            var ultimoCondicionDefault2 = listaNumeros.LastOrDefault(x => x > 5000);
+            var elementoEspecificoDefault1 = listaNumeros.ElementAtOrDefault(5);
+            var elementoEspecificoDefault2 = listaNumeros.ElementAtOrDefault(15);
 
-            var listaEdad = lista
-                                .Select(x => new
-                                {
-                                    NombreCompleto = $"{x.Nombre} {x.ApellidoPaterno}",
-                                    x.FechaNacimiento,
-                                    Edad = x.FechaNacimiento.HasValue ? (int?)DateTime.Now.AddTicks(-x.FechaNacimiento.Value.Ticks).Year - 1 : null
-                                })
-                                .ToList();
-            foreach(var item in listaEdad)
-            {
-                Console.WriteLine($"{item.NombreCompleto} {(item.FechaNacimiento.HasValue ? $"nacido(a) el {item.FechaNacimiento.Value.ToString("dd-MM-yyyy")}" : "Sin informacion de nacimiento")} {(item.Edad.HasValue ? $"con una edad de {item.Edad}": string.Empty)}");
-            }
-            Console.WriteLine();
-
-            var listaTelefonos = lista
-                                    .SelectMany(x => x.ListaTelefonos)
-                                    .ToList();
-            Console.WriteLine(string.Join(" \n ", listaTelefonos.Select(x => $"{x.CodigoPais} {x.Numero}")));
-            Console.WriteLine();
+            var primero = listaNumeros.First();
+            //var primeroCondicion = listaNumeros.First(x => x == 500);
+            var ultimo = listaNumeros.Last();
+            var ultimoCondicion1 = listaNumeros.Last(x => x < 25 && x > 5);
+            //var ultimoCondicion2 = listaNumeros.Last(x => x > 5000);
+            var elementoEspecifico1 = listaNumeros.ElementAtOrDefault(5);
+            //var elementoEspecifico2 = listaNumeros.ElementAtOrDefault(15);
         }
 
 
+        private static void SeleccionElementosNombres()
+        {
+            var listaNombres = Utilidades.ObtenerListaNombres();
+                                                                
+            Console.WriteLine(string.Join(" - ", listaNombres));
+
+            var primeroDefaultEmpiezaConJ = listaNombres.FirstOrDefault(x => x.StartsWith("J"));
+            var primeroDefaultEmpiezaConG = listaNombres.FirstOrDefault(x => x.StartsWith("G"));
+            var ultimoDefaultEmpiezaConG = listaNombres.LastOrDefault(x => x.StartsWith("J"));
+
+            var primeroEmpiezaConJ = listaNombres.First(x => x.StartsWith("J"));
+            //var primeroEmpiezaConG = listaNombres.First(x => x.StartsWith("G"));
+            var ultimoEmpiezaConJ = listaNombres.Last(x => x.StartsWith("J"));
+        }
     }
 }
