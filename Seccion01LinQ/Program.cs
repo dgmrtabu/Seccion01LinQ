@@ -19,7 +19,9 @@ namespace Seccion01LinQ
             //SeleccionNumeros();
             //SeleccionPersonas();
             //SeleccionElementosNumeros();
-            SeleccionElementosNombres();
+            //SeleccionElementosNombres();
+            //SeleccionElementosPersonas();
+            MetodosAgregadosNumeros_1();
             Console.Read();
         }
 
@@ -293,6 +295,97 @@ namespace Seccion01LinQ
             var primeroEmpiezaConJ = listaNombres.First(x => x.StartsWith("J"));
             //var primeroEmpiezaConG = listaNombres.First(x => x.StartsWith("G"));
             var ultimoEmpiezaConJ = listaNombres.Last(x => x.StartsWith("J"));
+        }
+
+        private static void SeleccionElementosPersonas()
+        {
+            var listaPersonas = Utilidades.ObtenerListaPersonas();
+
+           Console.WriteLine();
+            //Console.WriteLine(string.Join(" - ", listaNombres));
+
+            var persona = listaPersonas.FirstOrDefault(x => x.Nombre == "Sin Nombre");
+
+            // obtener primera persona de Sexo femenino en la lista
+            var personaSexoFemenino = listaPersonas.FirstOrDefault(x => x.Sexo == SexoEnum.Femenino);
+            // obtener la persona de mas edad de la lista
+            var personaMasEdad = listaPersonas
+                                                .Where(x => x.FechaNacimiento.HasValue)
+                                                .OrderBy(x => x.FechaNacimiento)
+                                                .FirstOrDefault();
+            // obtener la persona de menos edad de la lista
+            var personaMenosEdad1 = listaPersonas
+                                                .Where(x => x.FechaNacimiento.HasValue)
+                                                .OrderByDescending(x => x.FechaNacimiento)
+                                                .FirstOrDefault();
+
+            var personaMenosEdad2 = listaPersonas
+                                    .Where(x => x.FechaNacimiento.HasValue)
+                                    .OrderBy(x => x.FechaNacimiento)
+                                    .LastOrDefault();
+        }
+
+        private static void MetodosAgregadosNumeros_1()
+        {
+            var lista = Utilidades.ObtenerListaNumeros();
+            Console.WriteLine(string.Join(" - ", lista));
+
+            var minimo = lista.Min();
+            var maximo = lista.Max();
+            var promedio = lista.Average();
+            var contador = lista.Count();
+            var suma = lista.Sum();
+
+            Console.WriteLine($"Minimo: {minimo}, Maximo: {maximo}, Promedio: {promedio}");
+            Console.WriteLine($"Total Elememntos: {contador}, Suma: {suma}");
+            Console.WriteLine();
+
+            #region Contador
+            var contadorMenorIgual10 = lista.Count(x => x <= 10);
+            var contadorMayor10 = lista.Count(x => x > 10);
+            Console.WriteLine($"Menores iguales a 10: { contadorMenorIgual10 }, mayores a 10: {contadorMayor10}");
+            Console.WriteLine();
+
+            var contadorMenorIgual10_2 = lista.Count(x =>
+            {
+                return x <= 10;
+            });
+            var contadorMayor10_2 = lista.Count(x => { 
+                if(x > 10)
+                {
+                    return true;
+                }
+                {
+                    return false;
+                }
+            });
+            Console.WriteLine($"Menores iguales a 10: { contadorMenorIgual10_2 }, mayores a 10: { contadorMayor10_2 }");
+            Console.WriteLine();
+            #endregion
+
+            #region Suma
+            var sumaMenorIgual10 = lista.Sum(x => x <= 10 ? x : 0);
+            var sumaMayor10 = lista.Sum(x => x > 10 ? x : 0);
+            Console.WriteLine($"Menores iguales a 10: { sumaMenorIgual10 }, mayores a 10: {sumaMayor10}");
+            Console.WriteLine();
+
+            var sumaMenorIgual10_2 = lista.Count(x =>
+            {
+                return x <= 10;
+            });
+            var sumaMayor10_2 = lista.Sum(x => {
+                if (x > 10)
+                {
+                    return x;
+                }
+                {
+                    return 0;
+                }
+            });
+            Console.WriteLine($"Menores iguales a 10: { sumaMenorIgual10_2 }, mayores a 10: { sumaMayor10_2 }");
+            Console.WriteLine();
+            #endregion
+
         }
     }
 }
