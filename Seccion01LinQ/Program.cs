@@ -22,6 +22,7 @@ namespace Seccion01LinQ
             //SeleccionElementosNombres();
             //SeleccionElementosPersonas();
             MetodosAgregadosNumeros_1();
+            MetodosAgregadosNumeros_2();
             Console.Read();
         }
 
@@ -383,6 +384,73 @@ namespace Seccion01LinQ
                 }
             });
             Console.WriteLine($"Menores iguales a 10: { sumaMenorIgual10_2 }, mayores a 10: { sumaMayor10_2 }");
+            Console.WriteLine();
+            #endregion
+
+        }
+
+        private static void MetodosAgregadosNumeros_2()
+        {
+            Console.WriteLine();
+            Console.WriteLine();
+            Console.WriteLine("---------------------Aggregate----------------");
+
+            var lista = Utilidades.ObtenerListaNumeros();
+
+            #region Suma
+
+            //var suma1 = lista.Aggregate((x, y) => {
+            //    Console.WriteLine($"X:{x},Y:{y}");
+            //    return x + y ;
+            //});
+
+            var suma1 = lista.Aggregate((x, y) => x + y);
+            var suma2 = lista.Aggregate(0, (acumulado, x) => acumulado + x);
+            Console.WriteLine($"Suma 1: {suma1}, Suma 2: {suma2}");
+
+            var sumaMenorIgual10 = lista.Aggregate(0, (acumulado, x) => x <= 10 ? acumulado + x: acumulado);
+            var sumaMayor10 = lista.Aggregate(0, (acumulado, x) => x > 10 ? acumulado + x : acumulado);
+            Console.WriteLine($"Menores iguales a 10: { sumaMenorIgual10 }, mayores a 10: {sumaMayor10}");
+            Console.WriteLine();
+
+            var sumaMenorIgual10_2 = lista.Aggregate(0,(acumulado, x) =>
+            {
+                return x <= 10 ? acumulado + x : acumulado;
+            });
+            var sumaMayor10_2 = lista.Aggregate(0, (acumulado, x) => {
+                if (x > 10)
+                {
+                    return acumulado + x;
+                }
+                {
+                    return acumulado;
+                }
+            });
+            Console.WriteLine($"Menores iguales a 10: { sumaMenorIgual10_2 }, mayores a 10: { sumaMayor10_2 }");
+            Console.WriteLine();
+            #endregion
+
+            #region Contador
+            var contadorMenorIgual10 = lista.Aggregate(0, (acumulado,x) => x <= 10 ? ++acumulado : acumulado);
+            var contadorMayor10 = lista.Aggregate(0, (acumulado, x) => x > 10 ? ++acumulado : acumulado);
+            Console.WriteLine($"Menores iguales a 10: { contadorMenorIgual10 }, mayores a 10: {contadorMayor10}");
+            Console.WriteLine();
+
+            var contadorMenorIgual10_2 = lista.Aggregate(0, (acumulado, x) =>
+            {
+                return x <= 10 ? ++acumulado : acumulado;
+            });
+            var contadorMayor10_2 = lista.Aggregate(0, (acumulado, x) =>
+            {
+                if (x > 10)
+                {
+                    return ++acumulado;
+                }
+                {
+                    return acumulado;
+                }
+            });
+            Console.WriteLine($"Menores iguales a 10: { contadorMenorIgual10_2 }, mayores a 10: { contadorMayor10_2 }");
             Console.WriteLine();
             #endregion
 
