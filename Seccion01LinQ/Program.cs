@@ -454,6 +454,42 @@ namespace Seccion01LinQ
             Console.WriteLine();
             #endregion
 
+            #region Minimo, Maximo, Promedio
+
+            var minimo = lista.Aggregate((x, y) => x < y ? x : y);
+            var maximo = lista.Aggregate((x, y) => x > y ? x : y);
+            var promedio = lista.Aggregate(0,
+                                            (acumulado, x) => acumulado + x,
+                                            valorFinal => (double)valorFinal / lista.Count
+                                            );
+            Console.WriteLine($"Minimo:{minimo}, Maximo:{maximo}, Promedio:{promedio}");
+
+            #endregion
+
+            #region Extras
+
+            // Multiplicacion
+            var multiplicacion = lista.Aggregate(1, (acumulado, x) => acumulado * x);
+            Console.WriteLine($"Multiplicacion: {multiplicacion.ToString("N0")}");
+            #endregion
+
+            //StrigJoin
+            var stringjoin = lista.Aggregate(string.Empty, (acumulado, x) => $"{acumulado}{x},", valorFinal => valorFinal.TrimEnd(',')
+            );                           
+            Console.WriteLine($"stringJoin: {stringjoin}");
+
+            // ListaFiltrada > 10
+            var listaFiltrada = lista.Aggregate(new List<int>(),
+                                            (acumulado, x) =>
+                                            {
+                                                if (x > 10)
+                                                {
+                                                    acumulado.Add(x);
+                                                }
+                                                return acumulado;
+                                            }
+                                            );
+            Console.WriteLine($"Lista filtrada: {string.Join(" - ", listaFiltrada)}");
         }
     }
 }
