@@ -21,8 +21,9 @@ namespace Seccion01LinQ
             //SeleccionElementosNumeros();
             //SeleccionElementosNombres();
             //SeleccionElementosPersonas();
-            MetodosAgregadosNumeros_1();
-            MetodosAgregadosNumeros_2();
+            //MetodosAgregadosNumeros_1();
+            //MetodosAgregadosNumeros_2();
+            MetodosAgregadosNombres();
             Console.Read();
         }
 
@@ -389,107 +390,216 @@ namespace Seccion01LinQ
 
         }
 
-        private static void MetodosAgregadosNumeros_2()
+        //private static void MetodosAgregadosNumeros_2()
+        //{
+        //    Console.WriteLine();
+        //    Console.WriteLine();
+        //    Console.WriteLine("---------------------Aggregate----------------");
+
+        //    var lista = Utilidades.ObtenerListaNumeros();
+
+        //    #region Suma
+
+        //    //var suma1 = lista.Aggregate((x, y) => {
+        //    //    Console.WriteLine($"X:{x},Y:{y}");
+        //    //    return x + y ;
+        //    //});
+
+        //    var suma1 = lista.Aggregate((x, y) => x + y);
+        //    var suma2 = lista.Aggregate(0, (acumulado, x) => acumulado + x);
+        //    Console.WriteLine($"Suma 1: {suma1}, Suma 2: {suma2}");
+
+        //    var sumaMenorIgual10 = lista.Aggregate(0, (acumulado, x) => x <= 10 ? acumulado + x: acumulado);
+        //    var sumaMayor10 = lista.Aggregate(0, (acumulado, x) => x > 10 ? acumulado + x : acumulado);
+        //    Console.WriteLine($"Menores iguales a 10: { sumaMenorIgual10 }, mayores a 10: {sumaMayor10}");
+        //    Console.WriteLine();
+
+        //    var sumaMenorIgual10_2 = lista.Aggregate(0,(acumulado, x) =>
+        //    {
+        //        return x <= 10 ? acumulado + x : acumulado;
+        //    });
+        //    var sumaMayor10_2 = lista.Aggregate(0, (acumulado, x) => {
+        //        if (x > 10)
+        //        {
+        //            return acumulado + x;
+        //        }
+        //        {
+        //            return acumulado;
+        //        }
+        //    });
+        //    Console.WriteLine($"Menores iguales a 10: { sumaMenorIgual10_2 }, mayores a 10: { sumaMayor10_2 }");
+        //    Console.WriteLine();
+        //    #endregion
+
+        //    #region Contador
+        //    var contadorMenorIgual10 = lista.Aggregate(0, (acumulado,x) => x <= 10 ? ++acumulado : acumulado);
+        //    var contadorMayor10 = lista.Aggregate(0, (acumulado, x) => x > 10 ? ++acumulado : acumulado);
+        //    Console.WriteLine($"Menores iguales a 10: { contadorMenorIgual10 }, mayores a 10: {contadorMayor10}");
+        //    Console.WriteLine();
+
+        //    var contadorMenorIgual10_2 = lista.Aggregate(0, (acumulado, x) =>
+        //    {
+        //        return x <= 10 ? ++acumulado : acumulado;
+        //    });
+        //    var contadorMayor10_2 = lista.Aggregate(0, (acumulado, x) =>
+        //    {
+        //        if (x > 10)
+        //        {
+        //            return ++acumulado;
+        //        }
+        //        {
+        //            return acumulado;
+        //        }
+        //    });
+        //    Console.WriteLine($"Menores iguales a 10: { contadorMenorIgual10_2 }, mayores a 10: { contadorMayor10_2 }");
+        //    Console.WriteLine();
+        //    #endregion
+
+        //    #region Minimo, Maximo, Promedio
+
+        //    var minimo = lista.Aggregate((x, y) => x < y ? x : y);
+        //    var maximo = lista.Aggregate((x, y) => x > y ? x : y);
+        //    var promedio = lista.Aggregate(0,
+        //                                    (acumulado, x) => acumulado + x,
+        //                                    valorFinal => (double)valorFinal / lista.Count
+        //                                    );
+        //    Console.WriteLine($"Minimo:{minimo}, Maximo:{maximo}, Promedio:{promedio}");
+
+        //    #endregion
+
+        //    #region Extras
+
+        //    // Multiplicacion
+        //    var multiplicacion = lista.Aggregate(1, (acumulado, x) => acumulado * x);
+        //    Console.WriteLine($"Multiplicacion: {multiplicacion.ToString("N0")}");
+        //    #endregion
+
+        //    //StrigJoin
+        //    var stringjoin = lista.Aggregate(string.Empty, (acumulado, x) => $"{acumulado}{x},", valorFinal => valorFinal.TrimEnd(',')
+        //    );                           
+        //    Console.WriteLine($"stringJoin: {stringjoin}");
+
+        //    // ListaFiltrada > 10
+        //    var listaFiltrada = lista.Aggregate(new List<int>(),
+        //                                    (acumulado, x) =>
+        //                                    {
+        //                                        if (x > 10)
+        //                                        {
+        //                                            acumulado.Add(x);
+        //                                        }
+        //                                        return acumulado;
+        //                                    }
+        //                                    );
+        //    Console.WriteLine($"Lista filtrada: {string.Join(" - ", listaFiltrada)}");
+        //}
+
+        private static void MetodosAgregadosNombres()
         {
-            Console.WriteLine();
-            Console.WriteLine();
-            Console.WriteLine("---------------------Aggregate----------------");
+            var listaNombres = Utilidades.ObtenerListaNombres();
+            Console.WriteLine(string.Join(" - ", listaNombres));
 
-            var lista = Utilidades.ObtenerListaNumeros();
+            var minimo = listaNombres.Min();
+            var maximo = listaNombres.Max();
+            var contador = listaNombres.Count();
 
-            #region Suma
-
-            //var suma1 = lista.Aggregate((x, y) => {
-            //    Console.WriteLine($"X:{x},Y:{y}");
-            //    return x + y ;
-            //});
-
-            var suma1 = lista.Aggregate((x, y) => x + y);
-            var suma2 = lista.Aggregate(0, (acumulado, x) => acumulado + x);
-            Console.WriteLine($"Suma 1: {suma1}, Suma 2: {suma2}");
-
-            var sumaMenorIgual10 = lista.Aggregate(0, (acumulado, x) => x <= 10 ? acumulado + x: acumulado);
-            var sumaMayor10 = lista.Aggregate(0, (acumulado, x) => x > 10 ? acumulado + x : acumulado);
-            Console.WriteLine($"Menores iguales a 10: { sumaMenorIgual10 }, mayores a 10: {sumaMayor10}");
+            Console.WriteLine($"Minimo: { minimo }, Maximo: {maximo}, Contador:{contador}");
             Console.WriteLine();
 
-            var sumaMenorIgual10_2 = lista.Aggregate(0,(acumulado, x) =>
-            {
-                return x <= 10 ? acumulado + x : acumulado;
-            });
-            var sumaMayor10_2 = lista.Aggregate(0, (acumulado, x) => {
-                if (x > 10)
-                {
-                    return acumulado + x;
-                }
-                {
-                    return acumulado;
-                }
-            });
-            Console.WriteLine($"Menores iguales a 10: { sumaMenorIgual10_2 }, mayores a 10: { sumaMayor10_2 }");
-            Console.WriteLine();
-            #endregion
-
-            #region Contador
-            var contadorMenorIgual10 = lista.Aggregate(0, (acumulado,x) => x <= 10 ? ++acumulado : acumulado);
-            var contadorMayor10 = lista.Aggregate(0, (acumulado, x) => x > 10 ? ++acumulado : acumulado);
-            Console.WriteLine($"Menores iguales a 10: { contadorMenorIgual10 }, mayores a 10: {contadorMayor10}");
-            Console.WriteLine();
-
-            var contadorMenorIgual10_2 = lista.Aggregate(0, (acumulado, x) =>
-            {
-                return x <= 10 ? ++acumulado : acumulado;
-            });
-            var contadorMayor10_2 = lista.Aggregate(0, (acumulado, x) =>
-            {
-                if (x > 10)
-                {
-                    return ++acumulado;
-                }
-                {
-                    return acumulado;
-                }
-            });
-            Console.WriteLine($"Menores iguales a 10: { contadorMenorIgual10_2 }, mayores a 10: { contadorMayor10_2 }");
-            Console.WriteLine();
-            #endregion
-
-            #region Minimo, Maximo, Promedio
-
-            var minimo = lista.Aggregate((x, y) => x < y ? x : y);
-            var maximo = lista.Aggregate((x, y) => x > y ? x : y);
-            var promedio = lista.Aggregate(0,
-                                            (acumulado, x) => acumulado + x,
-                                            valorFinal => (double)valorFinal / lista.Count
+            // Transformar los nombres a nobres sin vocales
+            var listaSinVocales = listaNombres
+                                            .Select(i => i.ToUpper()
+                                                                .Aggregate(new StringBuilder(),
+                                                                (acumulado, x) =>
+                                                                {
+                                                                    var vocales = new List<char> { 'A', 'E', 'I', 'O', 'U' };
+                                                                    if (!vocales.Contains(x))
+                                                                    {
+                                                                        acumulado.Append(x);
+                                                                    }
+                                                                    return acumulado;
+                                                                }
+                                                                )
                                             );
-            Console.WriteLine($"Minimo:{minimo}, Maximo:{maximo}, Promedio:{promedio}");
+            Console.WriteLine(string.Join(" - ", listaSinVocales));
+            Console.WriteLine();
 
-            #endregion
+            // Crear lista con 2 propiedades Nombre y Vocales que contiene
+            var listaNombreVocales = listaNombres
+                                .Select(i => new
+                                {
+                                    Nombre = i,
+                                    Vocales = i.ToUpper()
+                                                    .Aggregate(new StringBuilder(),
+                                                    (acumulado, x) =>
+                                                    {
+                                                        var vocales = new List<char> { 'A', 'E', 'I', 'O', 'U' };
+                                                        if (vocales.Contains(x))
+                                                        {
+                                                            acumulado.Append(x);
+                                                        }
+                                                        return acumulado;
+                                                    })
+                                }
+                                ).ToList();
+            foreach(var item in listaNombreVocales)
+            {
+                Console.WriteLine($"Nombre: {item.Nombre}, Vocales: {item.Vocales}");
+            }
+            
+            Console.WriteLine();
 
-            #region Extras
+            // Crear lista con 2 propiedades Nombre y Cantidades de vocales que contiene
+            var listaNombreCantidadVocales = listaNombres
+                                .Select(i => new
+                                {
+                                    Nombre = i,
+                                    CantidadVocales = i.ToUpper()
+                                                    .Aggregate(new StringBuilder(),
+                                                    (acumulado, x) =>
+                                                    {
+                                                        var vocales = new List<char> { 'A', 'E', 'I', 'O', 'U' };
+                                                        if (vocales.Contains(x))
+                                                        {
+                                                            acumulado.Append(x);
+                                                        }
+                                                        return acumulado;
+                                                    }, 
+                                                    valorFinal => valorFinal.Length)
+                                }
+                                ).ToList();
+            foreach (var item in listaNombreCantidadVocales)
+            {
+                Console.WriteLine($"Nombre: {item.Nombre}, Vocales: {item.CantidadVocales}");
+            }
 
-            // Multiplicacion
-            var multiplicacion = lista.Aggregate(1, (acumulado, x) => acumulado * x);
-            Console.WriteLine($"Multiplicacion: {multiplicacion.ToString("N0")}");
-            #endregion
+            Console.WriteLine();
 
-            //StrigJoin
-            var stringjoin = lista.Aggregate(string.Empty, (acumulado, x) => $"{acumulado}{x},", valorFinal => valorFinal.TrimEnd(',')
-            );                           
-            Console.WriteLine($"stringJoin: {stringjoin}");
+            // Verificar si tiene todas las vocales
+            // Var diccionario = new Dictionary<char, int>() {['A']=0, ['E']=0, ['I']=0, ['O']=0, ['U']=0};
+            var listaAnimales = new List<string> { "ELEFANTES", "MURCIELAGO" };
+            var listaNombreTodasVocales = listaAnimales
+                                .Select(i => new
+                                {
+                                    Nombre = i,
+                                    TodasVocales = i.ToUpper()
+                                                    .Aggregate(new Dictionary<char, int>() { ['A'] = 0, ['E'] = 0, ['I'] = 0, ['O'] = 0, ['U'] = 0 },
+                                                    (acumulado, x) =>
+                                                    {
+                                                        if (acumulado.ContainsKey(x))
+                                                        {
+                                                            acumulado[x] += 1;
+                                                        }
+                                                        return acumulado;
+                                                    }, valorFinal => valorFinal.All(y => y.Value > 0)
+                                                    )
+                                }).ToList();
+            foreach (var item in listaNombreTodasVocales)
+            {
+                Console.WriteLine($"Nombre: {item.Nombre}, Vocales: {item.TodasVocales}");
+            }
 
-            // ListaFiltrada > 10
-            var listaFiltrada = lista.Aggregate(new List<int>(),
-                                            (acumulado, x) =>
-                                            {
-                                                if (x > 10)
-                                                {
-                                                    acumulado.Add(x);
-                                                }
-                                                return acumulado;
-                                            }
-                                            );
-            Console.WriteLine($"Lista filtrada: {string.Join(" - ", listaFiltrada)}");
+            Console.WriteLine();
+
         }
     }
 }

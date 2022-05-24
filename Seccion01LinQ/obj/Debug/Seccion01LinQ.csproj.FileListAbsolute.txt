@@ -12,3 +12,10 @@ C:\Users\david.montano\Documents\Desarrollo\C Sharp\Seccion01LinQ\Seccion01LinQ\
 C:\Users\david.montano\Documents\Desarrollo\C Sharp\Seccion01LinQ\Seccion01LinQ\obj\Debug\Seccion01LinQ.csproj.CoreCompileInputs.cache
 C:\Users\david.montano\Documents\Desarrollo\C Sharp\Seccion01LinQ\Seccion01LinQ\obj\Debug\Seccion01LinQ.exe
 C:\Users\david.montano\Documents\Desarrollo\C Sharp\Seccion01LinQ\Seccion01LinQ\obj\Debug\Seccion01LinQ.pdb
+C:\Users\David Montaño Rocha\Documents\Desarrollo\Csharp\Seccion01LinQ\Seccion01LinQ\obj\Debug\Seccion01LinQ.csproj.AssemblyReference.cache
+C:\Users\David Montaño Rocha\Documents\Desarrollo\Csharp\Seccion01LinQ\Seccion01LinQ\obj\Debug\Seccion01LinQ.csproj.CoreCompileInputs.cache
+C:\Users\David Montaño Rocha\Documents\Desarrollo\Csharp\Seccion01LinQ\Seccion01LinQ\obj\Debug\Seccion01LinQ.exe
+C:\Users\David Montaño Rocha\Documents\Desarrollo\Csharp\Seccion01LinQ\Seccion01LinQ\obj\Debug\Seccion01LinQ.pdb
+C:\Users\David Montaño Rocha\Documents\Desarrollo\Csharp\Seccion01LinQ\Seccion01LinQ\bin\Debug\Seccion01LinQ.exe.config
+C:\Users\David Montaño Rocha\Documents\Desarrollo\Csharp\Seccion01LinQ\Seccion01LinQ\bin\Debug\Seccion01LinQ.exe
+C:\Users\David Montaño Rocha\Documents\Desarrollo\Csharp\Seccion01LinQ\Seccion01LinQ\bin\Debug\Seccion01LinQ.pdb
