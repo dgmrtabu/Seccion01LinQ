@@ -23,7 +23,8 @@ namespace Seccion01LinQ
             //SeleccionElementosPersonas();
             //MetodosAgregadosNumeros_1();
             //MetodosAgregadosNumeros_2();
-            MetodosAgregadosNombres();
+            //MetodosAgregadosNombres();
+            MetodosAgregadosPersonas();
             Console.Read();
         }
 
@@ -599,6 +600,46 @@ namespace Seccion01LinQ
             }
 
             Console.WriteLine();
+
+        }
+
+        private static void MetodosAgregadosPersonas() 
+        {
+            var listaPersonas = Utilidades.ObtenerListaPersonas();
+
+            // Contar personas de ambos sexos
+            var contadorFemenino = listaPersonas.Count(x => x.Sexo == SexoEnum.Femenino);
+            var contadorMasculino = listaPersonas.Count(x => x.Sexo == SexoEnum.Masculino);
+            Console.WriteLine("Contador");
+            Console.WriteLine($"Femenino: {contadorFemenino}, Masculino: {contadorMasculino}");
+            Console.WriteLine();
+
+            //Sumar las edades
+            var sumaYears1 = listaPersonas.Sum(x => x.FechaNacimiento.HasValue ? DateTime.Now.AddTicks(-x.FechaNacimiento.Value.Ticks).Year - 1 : 0);
+            var sumaYears2 = listaPersonas.Sum(x => {
+                if (x.FechaNacimiento.HasValue)
+                {
+                    return DateTime.Now.AddTicks(-x.FechaNacimiento.Value.Ticks).Year - 1;
+                }
+                    return 0;
+            });
+
+            var sumaYears3 = listaPersonas
+                                            .Where(x => x.FechaNacimiento.HasValue)
+                                            .Select(x => DateTime.Now.AddTicks(-x.FechaNacimiento.Value.Ticks).Year - 1)
+                                            .Sum();
+            Console.WriteLine("Suma");
+            Console.WriteLine($"Suma edades 1: {sumaYears1}, Suma edades 2: {sumaYears2}, Suma edades 3: {sumaYears3}");
+            Console.WriteLine();
+
+            var listaTelefonosAggregate = listaPersonas
+                                            .Aggregate(new List<Telefono>(),
+                                            (acumulado, x) =>
+                                            {
+                                                //acumulado.Add(x.ListaTelefonos);
+                                                return acumulado;
+                                            });
+
 
         }
     }
