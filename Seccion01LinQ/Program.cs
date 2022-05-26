@@ -636,11 +636,62 @@ namespace Seccion01LinQ
                                             .Aggregate(new List<Telefono>(),
                                             (acumulado, x) =>
                                             {
-                                                //acumulado.Add(x.ListaTelefonos);
+                                                acumulado.AddRange(x.ListaTelefonos);
                                                 return acumulado;
                                             });
+            Console.WriteLine("Con Aggregate realizar SelectMany con los telefonos");
+            foreach(var item in listaTelefonosAggregate)
+            {
+                Console.WriteLine($"{item.CodigoPais}-{item.Numero}");
+            }
+            Console.WriteLine();
 
+            var listaTelefonosAggregateDiccionario = listaPersonas
+                                                                .Aggregate(new Dictionary<string, List<Telefono>>(),
+                                                                    (acumulado, x) =>
+                                                                    {
+                                                                        acumulado.Add(x.Rut, x.ListaTelefonos);
+                                                                        return acumulado;
+                                                                    }
+                                                                    );
+            Console.WriteLine("Con Aggregate retornar un diccionario rut + lista de telefonos");
+            foreach (var item in listaTelefonosAggregateDiccionario)
+            {
+                Console.WriteLine($"{item.Key}-->{string.Join("-", item.Value.Select(x=>$"{x.CodigoPais}-{x.Numero}"))}");
+            }
+            Console.WriteLine();
 
+            var listaTelefonosAggregateAnonymousType = listaPersonas
+                                                                    .Aggregate(new[] { new { Rut = "Primer Elemento", ListaTelefonos = new List<Telefono>() } },
+                                                                            (acumulado, x) => acumulado.Concat(new[] { new { x.Rut, x.ListaTelefonos } }).ToArray(),
+                                                                            ValorFinal =>
+                                                                            {
+                                                                                var retorno = ValorFinal.ToList();
+                                                                                retorno.RemoveAt(0);
+                                                                                return retorno;
+                                                                            }
+                                                                            );
+            Console.WriteLine("Con Aggregate retornar un diccionario rut + lista de telefonos");
+            foreach (var item in listaTelefonosAggregateAnonymousType)
+            {
+                Console.WriteLine($"{item.Rut}-->{string.Join("-", item.ListaTelefonos.Select(x => $"{x.CodigoPais}-{x.Numero}"))}");
+            }
+            Console.WriteLine();
+
+            var listaTelefonosValueTuple = listaPersonas
+                                                        .Aggregate(new List<(string Rut, List<Telefono> ListaTelefonos)>(),
+                                                            (acumulado, x) =>
+                                                            {
+                                                                acumulado.Add((x.Rut, x.ListaTelefonos));
+                                                                return acumulado;
+                                                            }
+                                                        );
+            Console.WriteLine("Con Aggregate retornar un valueTuble rut + lista de telefonos");
+            foreach (var item in listaTelefonosValueTuple)
+            {
+                Console.WriteLine($"{item.Rut}-->{string.Join("-", item.ListaTelefonos.Select(x => $"{x.CodigoPais}-{x.Numero}"))}");
+            }
+            Console.WriteLine();
         }
     }
 }
