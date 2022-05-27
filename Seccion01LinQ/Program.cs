@@ -24,7 +24,9 @@ namespace Seccion01LinQ
             //MetodosAgregadosNumeros_1();
             //MetodosAgregadosNumeros_2();
             //MetodosAgregadosNombres();
-            MetodosAgregadosPersonas();
+            //MetodosAgregadosPersonas();
+            //AgrupacionListaNumerosNombres();
+            AgrupacionListaPersonas();
             Console.Read();
         }
 
@@ -690,6 +692,75 @@ namespace Seccion01LinQ
             foreach (var item in listaTelefonosValueTuple)
             {
                 Console.WriteLine($"{item.Rut}-->{string.Join("-", item.ListaTelefonos.Select(x => $"{x.CodigoPais}-{x.Numero}"))}");
+            }
+            Console.WriteLine();
+        }
+
+        private static void AgrupacionListaNumerosNombres()
+        {
+            var listaNumeros = Utilidades.ObtenerListaNumeros();
+            var agrupacionNumeros = listaNumeros.GroupBy(x => x > 10, (key, valores) => new { Mayor10 = key, Suma = valores.Sum(), TotalElementos = valores.Count(), ListaElementos = valores })
+                .ToList();
+            foreach(var item in agrupacionNumeros)
+            {
+                Console.WriteLine($"Se encontraron {item.TotalElementos} elementos {(item.Mayor10 ? "Mayores" : "Menores")} a 10, la suma de los elementos es {item.Suma}, lista de los elementos es: {string.Join("-",item.ListaElementos)}");
+            }
+            Console.WriteLine();
+            Console.WriteLine();
+
+            var agrupacionNumeros2 = listaNumeros.GroupBy(x => new { G1 = x > 10, G2 = x % 2 ==0 },
+                                                          (key, valores) => new { Mayor10 = key.G1, EsPar = key.G2, Suma = valores.Sum(), TotalElementos = valores.Count(), ListaElementos = valores })
+                .ToList();
+            foreach (var item in agrupacionNumeros2)
+            {
+                Console.WriteLine($"Se encontraron {item.TotalElementos} elementos {(item.Mayor10 ? "Mayores" : "Menores")} a 10 {(item.EsPar ? "Pares" : "Impares")}, la suma de los elementos es {item.Suma}, lista de los elementos es: {string.Join("-", item.ListaElementos)}");
+            }
+            Console.WriteLine();
+            Console.WriteLine();
+
+            var listaNombres = Utilidades.ObtenerListaNombres();
+            var agrupacionNombres = listaNombres.GroupBy(x => x.Substring(0, 1),
+                                                (key, valores) => new { LetraInicial = key, TotalElementos = valores.Count(), ListaElementos = valores })
+                                                .ToList();
+            foreach (var item in agrupacionNombres)
+            {
+                Console.WriteLine($"Se encontraron {item.TotalElementos} elementos que comienzan por {item.LetraInicial} : {string.Join("-", item.ListaElementos)}");
+            }
+            Console.WriteLine();
+            Console.WriteLine();
+
+        }
+
+        private static void AgrupacionListaPersonas()
+        {
+            var lista = Utilidades.ObtenerListaPersonas();
+
+            var agrupacionSexo = lista.GroupBy(x => x.Sexo,
+                                                (key, valores) => new { Sexo = key, Total = valores.Count() }).ToList();
+            foreach (var item in agrupacionSexo)
+            {
+                Console.WriteLine($"Se encontraron {item.Total} personas de sexto {item.Sexo}");
+            }
+            Console.WriteLine();
+
+            var agrupacionSexoPais = lista.GroupBy(x =>
+                                                        new
+                                                        {
+                                                            G1 = x.Sexo,
+                                                            G2 = x.PaisNacimiento
+                                                        },
+                                                  (key, valores) =>
+                                                        new
+                                                        {
+                                                            Sexo = key.G1,
+                                                            Pais = key.G2,
+                                                            Total = valores.Count()
+                                                        }
+                                                   ).OrderBy(x => x.Pais)
+                                                   .ToList();
+            foreach (var item in agrupacionSexoPais)
+            {
+                Console.WriteLine($"Se encontraron {item.Total} personas de sexto {item.Sexo} del Pais {item.Pais}");
             }
             Console.WriteLine();
         }
