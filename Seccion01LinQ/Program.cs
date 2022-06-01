@@ -26,7 +26,8 @@ namespace Seccion01LinQ
             //MetodosAgregadosNombres();
             //MetodosAgregadosPersonas();
             //AgrupacionListaNumerosNombres();
-            AgrupacionListaPersonas();
+            //AgrupacionListaPersonas();
+            Fragmentacion();
             Console.Read();
         }
 
@@ -285,8 +286,6 @@ namespace Seccion01LinQ
             var elementoEspecifico1 = listaNumeros.ElementAtOrDefault(5);
             //var elementoEspecifico2 = listaNumeros.ElementAtOrDefault(15);
         }
-
-
         private static void SeleccionElementosNombres()
         {
             var listaNombres = Utilidades.ObtenerListaNombres();
@@ -301,12 +300,11 @@ namespace Seccion01LinQ
             //var primeroEmpiezaConG = listaNombres.First(x => x.StartsWith("G"));
             var ultimoEmpiezaConJ = listaNombres.Last(x => x.StartsWith("J"));
         }
-
         private static void SeleccionElementosPersonas()
         {
             var listaPersonas = Utilidades.ObtenerListaPersonas();
 
-           Console.WriteLine();
+            Console.WriteLine();
             //Console.WriteLine(string.Join(" - ", listaNombres));
 
             var persona = listaPersonas.FirstOrDefault(x => x.Nombre == "Sin Nombre");
@@ -329,7 +327,7 @@ namespace Seccion01LinQ
                                     .OrderBy(x => x.FechaNacimiento)
                                     .LastOrDefault();
         }
-
+        
         private static void MetodosAgregadosNumeros_1()
         {
             var lista = Utilidades.ObtenerListaNumeros();
@@ -764,5 +762,54 @@ namespace Seccion01LinQ
             }
             Console.WriteLine();
         }
+
+        private static void Fragmentacion()
+        {
+            var lista = Enumerable.Range(1, 100).ToList();
+            Console.WriteLine(string.Join("-", lista));
+
+            var listaSkip = lista.Skip(90);
+            Console.WriteLine(string.Join("-", listaSkip));
+
+            var listaTake = lista.Take(10);
+            Console.WriteLine(string.Join("-", listaTake));
+
+            var listaSkipTake = lista
+                                .Skip(10)
+                                .Take(15)
+                                .ToList();
+            Console.WriteLine(string.Join("-", listaSkipTake));
+
+            var listaTakeSkip = lista
+                    .Take(15)
+                    .Skip(10)
+                    .ToList();
+            Console.WriteLine(string.Join("-", listaTakeSkip));
+
+
+            var registrosPorPagina = 10;
+            for(int numeroPagina = 0; numeroPagina < Math.Ceiling((lista.Count/ (decimal)registrosPorPagina)); numeroPagina++)
+            {
+                var listaPaginada = lista
+                                .Skip(numeroPagina * registrosPorPagina)
+                                .Take(registrosPorPagina)
+                                .ToList();
+                Console.WriteLine($"Nº Pagina {numeroPagina + 1}: {string.Join("-", listaPaginada)} ");
+                
+            }
+
+            //lista.Add(15);
+            var listaSkipWhile = lista
+                        .SkipWhile(x => x <= 20)
+                        .ToList();
+            Console.WriteLine(string.Join("-", listaSkipWhile));
+
+            var listaTakeWhile = lista
+            .TakeWhile(x => x <= 20)
+            .ToList();
+            Console.WriteLine(string.Join("-", listaTakeWhile));
+        }
+
+
     }
 }
