@@ -49,6 +49,13 @@ namespace Seccion01LinQ
         }
     }
 
+    public class PersonaReducida
+    {
+        public string Rut { get; set; }
+        public string NombreCompleto { get; set; }
+        public int? Edad { get; set; }
+        public SexoEnum Sexo { get; set; }
+    }
     public class Telefono
     {
         public int CodigoPais { get; set; }

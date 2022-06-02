@@ -27,7 +27,8 @@ namespace Seccion01LinQ
             //MetodosAgregadosPersonas();
             //AgrupacionListaNumerosNombres();
             //AgrupacionListaPersonas();
-            Fragmentacion();
+            //Fragmentacion();
+            Transformacion();
             Console.Read();
         }
 
@@ -810,6 +811,31 @@ namespace Seccion01LinQ
             Console.WriteLine(string.Join("-", listaTakeWhile));
         }
 
+        private static void Transformacion()
+        {
+            var lista = Utilidades.ObtenerListaPersonas();
+            var arreglo = lista.ToArray();
 
+            var diccionario1 = lista.ToDictionary(x => x.Rut, x => x);
+            var diccionario2 = lista.ToDictionary(x => x.Rut, x => $"{x.Nombre} {x.ApellidoPaterno}");
+
+            var convertir1 = lista.ConvertAll(x =>
+                new
+                {
+                    x.Rut,
+                    NombreCompleto = $"{x.Nombre} {x.ApellidoPaterno}"
+                }
+            );
+
+
+            var convertir2 = lista.ConvertAll(x =>
+                new PersonaReducida
+                {
+                    Rut = x.Rut,
+                    NombreCompleto = $"{x.Nombre} {x.ApellidoPaterno}",
+                    Edad = x.FechaNacimiento.HasValue ? (int?)DateTime.Now.AddTicks(-x.FechaNacimiento.Value.Ticks).Year - 1 : null,
+                    Sexo = x.Sexo
+                });
+        }
     }
 }
